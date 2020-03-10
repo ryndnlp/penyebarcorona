@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -147,7 +148,7 @@ namespace penyebarcorona
                 unitEdges = lines[i].Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 fromNode = unitEdges[0];
                 toNode = unitEdges[1];
-                chance = double.Parse(unitEdges[2]);
+                chance = double.Parse(unitEdges[2], CultureInfo.InvariantCulture);
                 ed = new Edge(fromNode, toNode, chance);
                 e.Add(ed);
             }
