@@ -110,8 +110,8 @@ namespace penyebarcorona
             int N;
             string fromNode;
             string toNode;
-            string chance;
-            List<Edge> e = new List<Edge>;
+            double chance;
+            List<Edge> e = new List<Edge>();
 
             // Baca teks per line
             string[] lines = File.ReadAllLines(path);
@@ -122,12 +122,12 @@ namespace penyebarcorona
             unitEdges = lines[0].Split(separator, StringSplitOptions.RemoveEmptyEntries);
             N = int.Parse(unitEdges[0]);
 
-            for (int i=1; i < N; i++);
+            for (int i=1; i < N; i++)
             {
                 unitEdges = lines[i].Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 fromNode = unitEdges[1];
                 toNode = unitEdges[1];
-                chance = int.Parse(unitEdges[1]);
+                chance = double.Parse(unitEdges[1]);
             }
                
             return new List<Edge>();
