@@ -20,7 +20,7 @@ namespace penyebarcorona
             this.P = P;
             this.T = -1;
             this.t = -1;
-            this.I = -1d;
+            this.I = -1f;
         }
         public double getI(int currentTime)
         {
