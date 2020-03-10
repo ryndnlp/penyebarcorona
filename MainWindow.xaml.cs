@@ -28,13 +28,31 @@ namespace penyebarcorona
             graphViewer.Graph = graph;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NextDay(object sender, RoutedEventArgs e)
         {
             simulator.next();
 
             graph = new Graph();
 
             simulator.output(graph);
+
+            graph.Attr.LayerDirection = LayerDirection.LR;
+
+            graphViewer.Graph = graph;
+        }
+
+        private void AddDays(object sender, RoutedEventArgs e)
+        {
+            for(int i = 0; i < int.Parse(dayCount.Text); i++)
+            {
+                simulator.next();
+            }
+
+            graph = new Graph();
+
+            simulator.output(graph);
+
+            graph.Attr.LayerDirection = LayerDirection.LR;
 
             graphViewer.Graph = graph;
         }
