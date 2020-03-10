@@ -23,8 +23,8 @@ namespace penyebarcorona
             this.I = -1d;
         }
         public double getI(int currentTime)
-        {
-            this.I = this.P / (1 + (this.P - 1) * Math.Exp(-0.25*(this.gett(currentTime))));
+        { 
+            this.I = (double)this.P / (double)(1 + ((this.P - 1) * Math.Exp(-0.25 * (this.gett(currentTime)))));
             return this.I;
         }
 
