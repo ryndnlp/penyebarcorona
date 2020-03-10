@@ -112,7 +112,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="bin\Debug\edges.txt" />
     <Resource Include="nodes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="edges.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\nodes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

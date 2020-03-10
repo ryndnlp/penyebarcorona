@@ -24,8 +24,11 @@ namespace penyebarcorona
 
         public double getS(string A, string B)
         {
+            Console.WriteLine($"S dari {A} ke {B}:");
             var IA = (daftarNode.Find((node) => node.name == A).getI(currentTime));
+            Console.WriteLine($"I = {IA}");
             var tr = (daftarEdge.Find((edge) => edge.fromNode == A && edge.toNode == B)).tr;
+            Console.WriteLine($"TR = {tr}");
             return IA * tr;
         }
 
@@ -53,6 +56,7 @@ namespace penyebarcorona
                 // jika terjadi infeksi
                 if (S > 1 && !done.Contains(e.toNode))
                 {
+                    Console.WriteLine($"{e.fromNode} berhasil menginfeksi {e.toNode} (S = {S})");
                     // tandai udah
                     done.Add(e.toNode);
 
@@ -76,6 +80,12 @@ namespace penyebarcorona
             foreach (Edge e in daftarEdge)
             {
                 g.AddEdge(e.fromNode, e.toNode);
+            }
+
+            foreach (Node n in daftarNode)
+            {
+                var node = g.FindNode(n.name);
+                if (n.T >= 0) node.Attr.Color = Color.Red;
             }
         }
 
@@ -121,6 +131,7 @@ namespace penyebarcorona
             string toNode;
             double chance;
             List<Edge> e = new List<Edge>();
+            Edge ed;
 
             // Baca teks per line
             string[] lines = File.ReadAllLines(path);
@@ -131,15 +142,17 @@ namespace penyebarcorona
             unitEdges = lines[0].Split(separator, StringSplitOptions.RemoveEmptyEntries);
             N = int.Parse(unitEdges[0]);
 
-            for (int i=1; i < N; i++)
+            for (int i=1; i <= N; i++)
             {
                 unitEdges = lines[i].Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                fromNode = unitEdges[1];
+                fromNode = unitEdges[0];
                 toNode = unitEdges[1];
-                chance = double.Parse(unitEdges[1]);
+                chance = double.Parse(unitEdges[2]);
+                ed = new Edge(fromNode, toNode, chance);
+                e.Add(ed);
             }
                
-            return new List<Edge>();
+            return e;
         }
     }
 }
