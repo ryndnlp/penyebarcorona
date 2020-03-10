@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Msagl.Drawing;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace penyebarcorona
 {
@@ -25,6 +13,18 @@ namespace penyebarcorona
         {
             simulator = new Simulator();
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        public void MainWindow_Loaded(object s, RoutedEventArgs e) {
+
+            Graph graph = new Graph();
+
+            simulator.output(graph);
+
+            graph.Attr.LayerDirection = LayerDirection.LR;
+
+            graphViewer.Graph = graph;
         }
     }
 }

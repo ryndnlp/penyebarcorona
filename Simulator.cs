@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Msagl.Drawing;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace penyebarcorona
 {
@@ -69,6 +69,14 @@ namespace penyebarcorona
 
             // tambahkan currentTime
             currentTime++;
+        }
+
+        public void output(Graph g)
+        {
+            foreach (Edge e in daftarEdge)
+            {
+                g.AddEdge(e.fromNode, e.toNode);
+            }
         }
 
         public List<Node> loadNodes(string path)

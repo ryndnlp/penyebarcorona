@@ -10,13 +10,13 @@ namespace penyebarcorona
     {
         public string fromNode;
         public string toNode;
-        public int tr;
+        public double tr;
 
-        public Edge(string fromNode, string toNode, double chance)
+        public Edge(string fromNode, string toNode, double tr)
         {
             this.fromNode = fromNode;
             this.toNode = toNode;
-            this.chance = chance;
+            this.tr = tr;
         }
 
     }
