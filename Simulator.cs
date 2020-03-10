@@ -25,7 +25,7 @@ namespace penyebarcorona
         public double getS(string A, string B)
         {
             var IA = (daftarNode.Find((node) => node.name == A).getI(currentTime));
-            var tr = (daftarEdge.Find((edge) => edge.fromNode == A && edge.toNode == B);
+            var tr = (daftarEdge.Find((edge) => edge.fromNode == A && edge.toNode == B)).tr;
 
             S = IA * tr;
             return S;
