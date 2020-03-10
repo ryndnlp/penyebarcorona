@@ -10,17 +10,25 @@ namespace penyebarcorona
     {
         public string name;
         public int P;
-        private float I;
+        private double I;
         public int T;
         private int t;
 
-        public float getI(int currentTime)
+        public Node(string name, int P)
         {
-            I = 1.0f; // edit
-            return I;
+            this.name = name;
+            this.P = P;
+            this.T = -1;
+            this.t = -1;
+            this.I = -1d;
+        }
+        public double getI(int currentTime)
+        {
+            this.I = this.P / (1 + (this.P - 1) * Math.Exp(-0.25*(this.gett(currentTime))));
+            return this.I;
         }
 
-        public float gett(int currentTime)
+        public double gett(int currentTime)
         {
             t = currentTime - T;
             return t;

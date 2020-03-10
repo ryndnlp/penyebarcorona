@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace penyebarcorona
 {
@@ -20,8 +22,9 @@ namespace penyebarcorona
             currentTime = 0;
         }
 
-        public float getS(string A, string B)
+        public double getS(string A, string B)
         {
+
             return 1; // edit
         }
 
@@ -69,10 +72,64 @@ namespace penyebarcorona
 
         public List<Node> loadNodes(string path)
         {
-            return new List<Node>();
+            // Declaration
+            string[] unitNode;
+            string name;
+            int P;
+            List<Node> r = new List<Node>();
+            Node N;
+       
+            // Read a text file line by line.  
+            string[] lines = File.ReadAllLines(path);
+            
+            char[] separator = {' '};
+
+            // Split into strings and split at separator
+            unitNode = lines[0].Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            
+            string firstNode = unitNode[1];
+            
+            for (int i=1; i<lines.Length;i++)
+            {
+                unitNode = lines[i].Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                name = unitNode[0];
+                P = int.Parse(unitNode[1]);
+                N = new Node(name, P);
+                if(name == firstNode)
+                {
+                    N.T = 0;
+                }
+                r.Add(N);
+            }
+            return r;
         }
         public List<Edge> loadEdges(string path)
         {
+            // Dekarasi
+            string[] unitEdges;
+            int N;
+            string fromNode;
+            string toNode;
+            string chance;
+            List<Edge> e = new List<Edge>;
+
+            // Baca teks per line
+            string[] lines = File.ReadAllLines(path);
+
+            char[] separator = {' '};
+
+            // Split
+            unitEdges = lines[0].Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            N = int.Parse(unitEdges[0]);
+
+            for (int i=1; i < N; i++);
+            {
+                unitEdges = lines[i].Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                fromNode = unitEdges[1];
+                toNode = unitEdges[1];
+                chance = int.Parse(unitEdges[1]);
+            }
+               
             return new List<Edge>();
         }
     }
