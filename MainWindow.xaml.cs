@@ -20,8 +20,10 @@ namespace penyebarcorona
     /// </summary>
     public partial class MainWindow : Window
     {
+        Simulator simulator;
         public MainWindow()
         {
+            simulator = new Simulator();
             InitializeComponent();
         }
     }
