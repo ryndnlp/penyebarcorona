@@ -1,5 +1,7 @@
 ﻿using Microsoft.Msagl.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 
 namespace penyebarcorona
 {
@@ -21,7 +23,7 @@ namespace penyebarcorona
 
             graph = new Graph();
 
-            simulator.output(graph);
+            simulator.output(day, graph);
 
             graph.Attr.LayerDirection = LayerDirection.LR;
 
@@ -34,7 +36,7 @@ namespace penyebarcorona
 
             graph = new Graph();
 
-            simulator.output(graph);
+            simulator.output(day, graph);
 
             graph.Attr.LayerDirection = LayerDirection.LR;
 
@@ -50,11 +52,17 @@ namespace penyebarcorona
 
             graph = new Graph();
 
-            simulator.output(graph);
+            simulator.output(day, graph);
 
             graph.Attr.LayerDirection = LayerDirection.LR;
 
             graphViewer.Graph = graph;
+        }
+
+        private void IsNumber(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text) && e.Text.Length < 10;
         }
     }
 }

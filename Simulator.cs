@@ -76,8 +76,9 @@ namespace penyebarcorona
             currentTime++;
         }
 
-        public void output(Graph g)
+        public void output(System.Windows.Controls.Label l, Graph g)
         {
+            l.Content = $"Day {currentTime}";
             foreach (Edge e in daftarEdge)
             {
                 g.AddEdge(e.fromNode, e.toNode);
@@ -86,7 +87,10 @@ namespace penyebarcorona
             foreach (Node n in daftarNode)
             {
                 var node = g.FindNode(n.name);
-                if (n.T >= 0) node.Attr.Color = Color.Red;
+                var b = Convert.ToByte(255 - ((n.getI(currentTime) / n.P) * 255));
+                if (n.T >= 0) node.Attr.FillColor = new Color(255,b,b);
+                node.Attr.Shape = Shape.Circle;
+                node.LabelText = n.name + ((n.T >= 0) ? $" ({n.getI(currentTime):N4})" : " (0)");
             }
         }
 

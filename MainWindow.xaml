@@ -11,9 +11,10 @@
         <Viewbox HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="790"/>
         <Button x:Name="nextDay" Content="Next Day" HorizontalAlignment="Left" Margin="705,390,0,0" VerticalAlignment="Top" Width="75" Click="NextDay"/>
         <g:AutomaticGraphLayoutControl x:Name="graphViewer" Margin="2,0,0,35" Background="White"/>
-        <TextBox x:Name="dayCount" HorizontalAlignment="Left" Height="20" Margin="577,390,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="dayCount" PreviewTextInput="IsNumber" HorizontalAlignment="Left" Height="20" Margin="577,390,0,0" VerticalAlignment="Top" Width="43" TextAlignment="Right"/>
         <Button x:Name="addDays" Content="Add Days" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="625,390,0,0" Click="AddDays"/>
         <Label x:Name="day" Content="Day 0" HorizontalAlignment="Left" Height="30" Margin="10,387,0,0" VerticalAlignment="Top"/>
+        <Frame Content="" HorizontalAlignment="Left" Height="387" VerticalAlignment="Top" Width="790"/>
     </Grid>
 
 </Window>
