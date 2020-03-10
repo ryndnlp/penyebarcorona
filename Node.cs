@@ -14,13 +14,13 @@ namespace penyebarcorona
         public int T;
         private int t;
 
-        public float getI(int currentTime)
+        public double getI(int currentTime)
         {
             I = 1.0f; // edit
             return I;
         }
 
-        public float gett(int currentTime)
+        public double gett(int currentTime)
         {
             t = currentTime - T;
             return t;
