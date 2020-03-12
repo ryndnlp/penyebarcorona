@@ -9,29 +9,23 @@ namespace penyebarcorona
     class Node
     {
         public string name;
-        public int P;
-        private double I;
-        public int T;
-        private int t;
+        public int populationCount;
+        public int infectionDay;
 
         public Node(string name, int P)
         {
             this.name = name;
-            this.P = P;
-            this.T = -1;
-            this.t = -1;
-            this.I = -1d;
+            this.populationCount = P;
+            this.infectionDay = -1;
         }
-        public double getI(int currentTime)
+        public double getInfectionCount(int currentTime)
         { 
-            this.I = (double)this.P / (double)(1 + ((this.P - 1) * Math.Exp(-0.25 * (this.gett(currentTime)))));
-            return this.I;
+            return (double)this.populationCount / (double)(1 + ((this.populationCount - 1) * Math.Exp(-0.25 * (this.getTimeFromInfection(currentTime))))); ;
         }
 
-        public double gett(int currentTime)
+        public double getTimeFromInfection(int currentTime)
         {
-            t = currentTime - T;
-            return t;
+            return currentTime - infectionDay;
         }
     }
 }

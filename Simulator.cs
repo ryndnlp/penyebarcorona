@@ -13,37 +13,38 @@ namespace penyebarcorona
     {
         public int currentTime;
 
-        public List<Node> daftarNode;
-        public List<Edge> daftarEdge;
+        public List<Node> nodeList;
+        public List<Edge> edgeList;
 
         public Simulator()
         {
-            daftarNode = loadNodes("nodes.txt");
-            daftarEdge = loadEdges("edges.txt");
+            nodeList = loadNodes("nodes.txt");
+            edgeList = loadEdges("edges.txt");
             currentTime = 0;
         }
 
         public double getS(string A, string B)
         {
-            Console.WriteLine($"S dari {A} ke {B}:");
-            var IA = (daftarNode.Find((node) => node.name == A).getI(currentTime));
-            Console.WriteLine($"I = {IA}");
-            var tr = (daftarEdge.Find((edge) => edge.fromNode == A && edge.toNode == B)).tr;
-            Console.WriteLine($"TR = {tr}");
+            var IA = (nodeList.Find((node) => node.name == A).getInfectionCount(currentTime));
+            var tr = (edgeList.Find((edge) => edge.fromNode == A && edge.toNode == B)).transferChance;
             return IA * tr;
         }
 
         public void next()
         {
             // cari semua node yang terinfeksi
-            var infected = daftarNode.FindAll((node) => node.T >= 0).Select((node) => node.name);
+            var infectedNodeNames = nodeList.FindAll((node) => node.infectionDay >= 0).Select((node) => node.name);
 
             // isi queue dengan edge yang berasal dari node yang terinfeksi dan menuju yang tidak terinfeksi
-            var list = daftarEdge.FindAll((edge) => infected.Contains(edge.fromNode) && !infected.Contains(edge.toNode));
+            var list = edgeList.FindAll((edge) => infectedNodeNames.Contains(edge.fromNode) && !infectedNodeNames.Contains(edge.toNode));
             Queue<Edge> queue = new Queue<Edge>(list);
 
             // catat yang sudah dimasukkan kedalam queue
-            var done = new HashSet<string>();
+            var doneNodeNames = new HashSet<string>();
+            foreach (string s in infectedNodeNames)
+            {
+                doneNodeNames.Add(s);
+            }
 
             // looping pengujian S
             while (queue.Count > 0)
@@ -55,17 +56,16 @@ namespace penyebarcorona
                 var S = getS(e.fromNode, e.toNode);
                 
                 // jika terjadi infeksi
-                if (S > 1 && !done.Contains(e.toNode))
+                if (S > 1 && !doneNodeNames.Contains(e.toNode))
                 {
-                    Console.WriteLine($"{e.fromNode} berhasil menginfeksi {e.toNode} (S = {S})");
                     // tandai udah
-                    done.Add(e.toNode);
+                    doneNodeNames.Add(e.toNode);
 
                     // update nilai T
-                    daftarNode.Find((node) => node.name == e.toNode).T = currentTime;
+                    nodeList.Find((node) => node.name == e.toNode).infectionDay = currentTime;
 
                     // masukkan edge yang lain ke queue
-                    foreach (Edge newInfection in daftarEdge.FindAll((edge) => edge.fromNode == e.toNode))
+                    foreach (Edge newInfection in edgeList.FindAll((edge) => edge.fromNode == e.toNode))
                     {
                         queue.Enqueue(newInfection);
                     }
@@ -79,16 +79,19 @@ namespace penyebarcorona
         public void output(System.Windows.Controls.Label l, Graph g)
         {
             l.Content = $"Day {currentTime}";
-            foreach (Edge e in daftarEdge)
+            foreach (Edge e in edgeList)
             {
-                g.AddEdge(e.fromNode, e.toNode).Attr.Color = Color.White;
+                var draw = g.AddEdge(e.fromNode, e.transferChance.ToString(), e.toNode);
+                draw.Attr.Color = Color.White;
+                draw.Label.FontColor = Color.White;
+                draw.Label.FontSize = 7;
             }
 
-            foreach (Node n in daftarNode)
+            foreach (Node n in nodeList)
             {
                 var node = g.FindNode(n.name);
-                var b = Convert.ToByte(255 - ((n.getI(currentTime) / n.P) * 255));
-                if (n.T >= 0)
+                var b = Convert.ToByte(255 - ((n.getInfectionCount(currentTime) / n.populationCount) * 255));
+                if (n.infectionDay >= 0)  
                 {
                     node.Attr.FillColor = new Color(255, b, b);
                     node.Attr.Color = new Color(255, b, b);
@@ -99,7 +102,7 @@ namespace penyebarcorona
                     node.Attr.Color = Color.White;
                 }
                 node.Attr.Shape = Shape.Circle;
-                node.LabelText = n.name + ((n.T >= 0) ? $" ({n.getI(currentTime):N0})" : " (0)");
+                node.LabelText = n.name + ((n.infectionDay >= 0) ? $" ({n.getInfectionCount(currentTime):N0})" : " (0)");
             }
             g.Attr.BackgroundColor = new Color(30, 30, 30);
 
@@ -132,7 +135,7 @@ namespace penyebarcorona
                 N = new Node(name, P);
                 if(name == firstNode)
                 {
-                    N.T = 0;
+                    N.infectionDay = 0;
                 }
                 r.Add(N);
             }
@@ -140,7 +143,7 @@ namespace penyebarcorona
         }
         public List<Edge> loadEdges(string path)
         {
-            // Dekarasi
+            // Deklarasi
             string[] unitEdges;
             int N;
             string fromNode;
