@@ -39,8 +39,8 @@ namespace penyebarcorona
             // cari semua node yang terinfeksi
             var infectedNodeNames = nodeList.FindAll((node) => node.infectionDay >= 0).Select((node) => node.name);
 
-            // isi queue dengan edge yang berasal dari node yang terinfeksi dan menuju yang tidak terinfeksi
-            var list = edgeList.FindAll((edge) => infectedNodeNames.Contains(edge.fromNode) && !infectedNodeNames.Contains(edge.toNode));
+            // isi queue dengan edge yang berasal dari node yang terinfeksi
+            var list = edgeList.FindAll((edge) => infectedNodeNames.Contains(edge.fromNode));
             Queue<Edge> queue = new Queue<Edge>(list);
 
             // catat yang sudah dimasukkan kedalam queue
@@ -60,19 +60,31 @@ namespace penyebarcorona
                 var S = getS(e.fromNode, e.toNode);
                 
                 // jika terjadi infeksi
-                if (S > 1 && !doneNodeNames.Contains(e.toNode))
+                if (S > 1)
                 {
-                    // tandai udah
-                    doneNodeNames.Add(e.toNode);
-
-                    // update nilai T
-                    nodeList.Find((node) => node.name == e.toNode).infectionDay = currentTime;
-
-                    // masukkan edge yang lain ke queue
-                    foreach (Edge newInfection in edgeList.FindAll((edge) => edge.fromNode == e.toNode))
+                    if (infectedNodeNames.Contains(e.toNode) && doneNodeNames.Contains(e.toNode) && e.status == Edge.Status.Exists)
                     {
-                        queue.Enqueue(newInfection);
+                        // tandai edge teraktivasi
+                        e.status = Edge.Status.Activated;
+                    } 
+                    else if (!doneNodeNames.Contains(e.toNode))
+                    {
+                        // tandai edge jalur penyakit
+                        e.status = Edge.Status.Pathway;
+
+                        // tandai udah
+                        doneNodeNames.Add(e.toNode);
+
+                        // update nilai T
+                        nodeList.Find((node) => node.name == e.toNode).infectionDay = currentTime;
+
+                        // masukkan edge yang lain ke queue
+                        foreach (Edge newInfection in edgeList.FindAll((edge) => edge.fromNode == e.toNode))
+                        {
+                            queue.Enqueue(newInfection);
+                        }
                     }
+                    
                 }
             }
 
@@ -86,8 +98,22 @@ namespace penyebarcorona
             foreach (Edge e in edgeList)
             {
                 var draw = g.AddEdge(e.fromNode, e.transferChance.ToString(), e.toNode);
-                draw.Attr.Color = Color.White;
-                draw.Label.FontColor = Color.White;
+                Color color;
+                switch (e.status)
+                {
+                    case Edge.Status.Activated:
+                        color = Color.White;
+                        break;
+                    case Edge.Status.Pathway:
+                        color = Color.Red;
+                        break;
+                    default:
+                        color = Color.Gray;
+                        break;
+                }
+
+                draw.Attr.Color = color;
+                draw.Label.FontColor = color;
                 draw.Label.FontSize = 7;
             }
 
