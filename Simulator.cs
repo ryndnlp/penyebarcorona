@@ -20,6 +20,7 @@ namespace penyebarcorona
         public List<Node> nodeList;
         public List<Edge> edgeList;
 
+        // Konstruktor simulator baru
         public Simulator()
         {
             nodeList = loadNodes("nodes.txt");
@@ -27,6 +28,7 @@ namespace penyebarcorona
             currentTime = 0;
         }
 
+        // Fungsi menghitung peluang penyebaran antara dua simpul
         public double getS(string A, string B)
         {
             var IA = (nodeList.Find((node) => node.name == A).getInfectionCount(currentTime));
@@ -34,6 +36,7 @@ namespace penyebarcorona
             return IA * tr;
         }
 
+        // Fungsi mensimulasikan satu hari
         public void next()
         {
             // cari semua node yang terinfeksi
@@ -92,6 +95,7 @@ namespace penyebarcorona
             currentTime++;
         }
 
+        // Prosedur penampilan data ke GUI
         public void output(System.Windows.Controls.Label l, Graph g)
         {
             l.Content = $"Day {currentTime}";
@@ -138,6 +142,7 @@ namespace penyebarcorona
 
         }
 
+        // Fungsi memuat data simpul dari file eksternal
         public List<Node> loadNodes(string path)
         {
             // Declaration
@@ -171,6 +176,8 @@ namespace penyebarcorona
             }
             return r;
         }
+
+        // Fungsi memuat sisi dari file eksternal
         public List<Edge> loadEdges(string path)
         {
             // Deklarasi
