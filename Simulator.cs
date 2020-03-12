@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace penyebarcorona
 {
+    // Simulator
+    // Kelas yang menangani proses simulasi secara keseluruhan
     class Simulator
     {
+        // Nomor hari yang sedang disimulasikan
         public int currentTime;
 
+        // Daftar simpul dan sisi
         public List<Node> nodeList;
         public List<Edge> edgeList;
 

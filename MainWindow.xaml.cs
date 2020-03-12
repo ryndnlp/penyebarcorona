@@ -61,5 +61,18 @@ namespace penyebarcorona
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text) && e.Text.Length < 10;
         }
+
+        private void restartButton_Click(object sender, RoutedEventArgs e)
+        {
+            simulator = new Simulator();
+
+            graph = new Graph();
+
+            simulator.output(day, graph);
+
+            graph.Attr.LayerDirection = LayerDirection.LR;
+
+            graphViewer.Graph = graph;
+        }
     }
 }

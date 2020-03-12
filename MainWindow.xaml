@@ -28,6 +28,7 @@
         <Image HorizontalAlignment="Left" Height="147" Margin="548,273,-26,0" VerticalAlignment="Top" Width="268" Source="tedros1.jpg" RenderTransformOrigin="0.481,0.561"/>
         <Button x:Name="addDays" Content="Add Day(s)" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="446,380,0,0" Click="AddDays" Height="30" FontSize="15"/>
         <TextBox x:Name="dayCount" PreviewTextInput="IsNumber" HorizontalAlignment="Left" Height="30" Margin="399,380,0,0" VerticalAlignment="Top" Width="40" TextAlignment="Center" Text="1" FontSize="15" VerticalContentAlignment="Center"/>
+        <Button x:Name="restartButton" Content="Restart" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top" Width="66" Height="30" FontSize="15" Click="restartButton_Click"/>
     </Grid>
 
 </Window>
