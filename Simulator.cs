@@ -81,17 +81,28 @@ namespace penyebarcorona
             l.Content = $"Day {currentTime}";
             foreach (Edge e in daftarEdge)
             {
-                g.AddEdge(e.fromNode, e.toNode);
+                g.AddEdge(e.fromNode, e.toNode).Attr.Color = Color.White;
             }
 
             foreach (Node n in daftarNode)
             {
                 var node = g.FindNode(n.name);
                 var b = Convert.ToByte(255 - ((n.getI(currentTime) / n.P) * 255));
-                if (n.T >= 0) node.Attr.FillColor = new Color(255,b,b);
+                if (n.T >= 0)
+                {
+                    node.Attr.FillColor = new Color(255, b, b);
+                    node.Attr.Color = new Color(255, b, b);
+                }
+                else
+                {
+                    node.Attr.FillColor = Color.White;
+                    node.Attr.Color = Color.White;
+                }
                 node.Attr.Shape = Shape.Circle;
-                node.LabelText = n.name + ((n.T >= 0) ? $" ({n.getI(currentTime):N4})" : " (0)");
+                node.LabelText = n.name + ((n.T >= 0) ? $" ({n.getI(currentTime):N0})" : " (0)");
             }
+            g.Attr.BackgroundColor = new Color(30, 30, 30);
+
         }
 
         public List<Node> loadNodes(string path)

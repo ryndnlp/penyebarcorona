@@ -113,14 +113,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="nodes.txt">
+    <Content Include="nodes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Resource Include="who.png" />
+    <Resource Include="who.jpg" />
+    <Resource Include="tedros1.jpg" />
+    <Resource Include="tedros.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="edges.txt">
+    <Content Include="edges.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

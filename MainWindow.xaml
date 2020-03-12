@@ -6,15 +6,28 @@
         xmlns:g="http://mlsagl"
         xmlns:local="clr-namespace:penyebarcorona"
         mc:Ignorable="d"
-        Title="Coronavirus Spread Simulator" Height="450" Width="800" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
-    <Grid HorizontalAlignment="Left" Height="420" Margin="0,0,0,-1" VerticalAlignment="Top" Width="790" Background="#FFDADADA">
-        <Viewbox HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="790"/>
-        <Button x:Name="nextDay" Content="Next Day" HorizontalAlignment="Left" Margin="705,390,0,0" VerticalAlignment="Top" Width="75" Click="NextDay"/>
-        <g:AutomaticGraphLayoutControl x:Name="graphViewer" Margin="2,0,0,35" Background="White"/>
-        <TextBox x:Name="dayCount" PreviewTextInput="IsNumber" HorizontalAlignment="Left" Height="20" Margin="577,390,0,0" VerticalAlignment="Top" Width="43" TextAlignment="Right"/>
-        <Button x:Name="addDays" Content="Add Days" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="625,390,0,0" Click="AddDays"/>
-        <Label x:Name="day" Content="Day 0" HorizontalAlignment="Left" Height="30" Margin="10,387,0,0" VerticalAlignment="Top"/>
-        <Frame Content="" HorizontalAlignment="Left" Height="387" VerticalAlignment="Top" Width="790"/>
+        Title="Coronavirus Spread Simulator" Height="444" Width="800" ResizeMode="NoResize" SizeToContent="WidthAndHeight" Icon="who.png">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="White" Offset="0"/>
+            <GradientStop Color="#FF6B9BC3" Offset="0.915"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid HorizontalAlignment="Left" Height="420" Margin="0,0,0,-1" VerticalAlignment="Top" Width="790">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Viewbox HorizontalAlignment="Left" Height="416" VerticalAlignment="Top" Width="790"/>
+        <g:AutomaticGraphLayoutControl x:Name="graphViewer" Margin="0,0,242,0" VerticalScrollBarVisibility="Disabled" Background="#FF1E1E1E"/>
+        <Label x:Name="day" Content="Day 0" Height="67" Margin="554,83,6,0" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}" FontFamily="Segoe UI Semilight" Foreground="Black"/>
+        <Frame Content="" HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="548"/>
+        <PasswordBox HorizontalAlignment="Left" Margin="176,-361,0,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="147" Margin="548,273,-26,0" VerticalAlignment="Top" Width="268" Source="tedros1.jpg" RenderTransformOrigin="0.481,0.561"/>
+        <Button x:Name="addDays" Content="Add Day(s)" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="446,380,0,0" Click="AddDays" Height="30" FontSize="15"/>
+        <TextBox x:Name="dayCount" PreviewTextInput="IsNumber" HorizontalAlignment="Left" Height="30" Margin="399,380,0,0" VerticalAlignment="Top" Width="40" TextAlignment="Center" Text="1" FontSize="15" VerticalContentAlignment="Center"/>
     </Grid>
 
 </Window>
